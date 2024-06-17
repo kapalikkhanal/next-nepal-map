@@ -15,7 +15,8 @@ export default function DistrictMap({
   hoverColor,
   provinceColor,
   stroke,
-  strokeWidth
+  strokeWidth,
+  districtStyles = {}  // Add districtStyles prop
 }) {
   const handleMapClick = (item) => {
     if (onMapClick) {
@@ -36,6 +37,11 @@ export default function DistrictMap({
             if (color) pathColor = color
             if (randomSectorColor) pathColor = getRandomColor()
 
+            // Apply individual district style if available
+            if (districtStyles[item.name]) {
+              pathColor = districtStyles[item.name].fill || pathColor;
+            }
+
             return (
               <path
                 className={sectorClassName || ''}
@@ -49,7 +55,7 @@ export default function DistrictMap({
                 }}
                 onClick={() => handleMapClick(item)}
                 onMouseOut={(event) => {
-                  event.target.style.fill = pathColor
+                  event.target.style.fill = districtStyles[item.name]?.fill || pathColor
                 }}
               ></path>
             )
