@@ -65,7 +65,7 @@ export default App;
 
 ```
 ## References
-This project utilizes a modified version of the [react-nepal-map](https://github.com/keyrunpay/react-nepal-map) library. The original library was created by [keyrunpay](https://github.com/keyrunpay) and is available [here](https://github.com/keyrunpay/react-nepal-map).
+This project utilizes a modified version of the [react-nepal-map](https://github.com/keyrunpay/react-nepal-map) library and is available [here](https://github.com/keyrunpay/react-nepal-map).
 
 ## License
 
