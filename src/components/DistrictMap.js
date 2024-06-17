@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import districtMapData from '../metadatas/districtMapData'
 import {
@@ -16,11 +17,17 @@ export default function DistrictMap({
   provinceColor,
   stroke,
   strokeWidth,
-  districtStyles = {}  // Add districtStyles prop
+  districtStyles = {},  // Add districtStyles prop
+  showDistrictLabels = false  // Add showDistrictLabels prop with default false
 }) {
   const handleMapClick = (item) => {
     if (onMapClick) {
-      onMapClick({ name: item.name, zip: item.zip, province: item.province, area: item.area })
+      onMapClick({
+        name: item.name,
+        zip: item.zip,
+        province: item.province,
+        area: item.area
+      })
     }
   }
 
@@ -43,21 +50,34 @@ export default function DistrictMap({
             }
 
             return (
-              <path
-                className={sectorClassName || ''}
-                style={{ cursor: 'pointer', fill: pathColor }}
-                key={index}
-                stroke={stroke || '#000'}
-                strokeWidth={strokeWidth || '1px'}
-                d={item.shape}
-                onMouseOver={(event) => {
-                  event.target.style.fill = hoverColor || defaultColor
-                }}
-                onClick={() => handleMapClick(item)}
-                onMouseOut={(event) => {
-                  event.target.style.fill = districtStyles[item.name]?.fill || pathColor
-                }}
-              ></path>
+              <g key={index}>
+                <path
+                  className={sectorClassName || ''}
+                  style={{ cursor: 'pointer', fill: pathColor }}
+                  stroke={stroke || '#000'}
+                  strokeWidth={strokeWidth || '1px'}
+                  d={item.shape}
+                  onMouseOver={(event) => {
+                    event.target.style.fill = hoverColor || defaultColor
+                  }}
+                  onClick={() => handleMapClick(item)}
+                  onMouseOut={(event) => {
+                    event.target.style.fill = districtStyles[item.name]?.fill || pathColor
+                  }}
+                />
+                {showDistrictLabels && (
+                  <text
+                    x={item.labelPosition.x}
+                    y={item.labelPosition.y}
+                    fill={districtStyles[item.name]?.labelColor || '#000'}
+                    fontSize={districtStyles[item.name]?.labelFontSize || 12}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
+                    {item.name}
+                  </text>
+                )}
+              </g>
             )
           })}
         </g>
