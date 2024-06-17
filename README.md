@@ -1,87 +1,71 @@
-# react-nepal-map
+# Map of Nepal
 
-> React component for Nepal Map
+> Next component for Map of Nepal
 
 [![NPM](https://img.shields.io/npm/v/react-nepal-map.svg)](https://www.npmjs.com/package/react-nepal-map) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-nepal-map
+npm install --save next-nepal-map
 ```
 
 ## Live Demo
 
-[https://keyrunpay.github.io/react-nepal-map](https://keyrunpay.github.io/react-nepal-map)
+[https://mapofnepal.vercel.app/](https://mapofnepal.vercel.app/)
 
 ## Usage
 
 ```jsx
-import React from 'react'
-import { ProvinceMap, ZonalMap, DistrictMap } from 'react-nepal-map'
+
+import React, { useState } from 'react';
+import { DistrictMap } from 'next-nepal-map';
 
 const App = () => {
+  const districtStyles = {
+    'Bhaktapur': { fill: 'red' },
+    'Kathmandu': { fill: 'green' },
+    'Lalitpur': { fill: 'blue' },
+  };
+
+  const [hoveredDistrict, setHoveredDistrict] = useState(null);
+
+  const handleHover = (districtName) => {
+    setHoveredDistrict(districtName);
+  };
+
+  const handleMapClick = (val) => {
+    console.log(val);
+  };
+
   return (
-    <div>
-      <ProvinceMap
-        hoverColor='red'
-        stroke='#000'
-        provinceColor=['red', 'green', 'blue']
-        strokeWidth={1}
-        onMapClick={(val) => console.log(val)}
-      />
-      <ZonalMap
-        hoverColor='red'
-        onMapClick={(val) => console.log(val)}
-        stroke='#000'
-        strokeWidth={1}
-      />
-      <DistrictMap
-        hoverColor='red'
-        stroke='#000'
-        strokeWidth={1}
-        onMapClick={(val) => console.log(val)}
-      />
+    <div className='flex justify-center items-center w-full max-h-screen flex-col py-4'>
+      <div className='relative h-auto w-full lg:px-[10%] p-4'>
+        <div className='h-4 absolute top-1/4 left-2/3'>
+          {hoveredDistrict && (
+            <div className="hover-overlay text-white border-2 border-white p-1.5 rounded-3xl px-4">
+              {hoveredDistrict}
+            </div>
+          )}
+        </div>
+        <DistrictMap
+          stroke='#000'
+          strokeWidth={1}
+          districtStyles={districtStyles}
+          onMapClick={handleMapClick}
+          showDistrictLabels={true}
+          onDistrictHover={handleHover}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
+
 ```
-
-## TypeScript
-
-TypeScript type definition was add to the [DefinitelyTyped repository](https://github.com/DefinitelyTyped/DefinitelyTyped)
-
-contributed by: [ashiishme](https://github.com/ashiishme)
-
-```bash
-npm install --save @types/react-nepal-map
-```
-
-## Contributors
-
-<a href="https://github.com/ashiishme"><img src="https://avatars1.githubusercontent.com/u/18111862?s=460&u=2f3e78032c535d11cf6c6be111ed4042e88326c9&v=4" title="ashiishme" width="60" height="60"></a>
-
-<a href="https://github.com/anwesh-b"><img src="https://avatars3.githubusercontent.com/u/45763486?s=400&v=4" title="anwesh-b" width="60" height="60"></a>
-
-## About Author
-
-<a href="https://github.com/keyrunpay"><img src="https://avatars0.githubusercontent.com/u/41059790?s=460&u=fceee26bdb0e5dd6b3b57120fa7295ddcd82d878&v=4" title="keyrunpay" width="60" height="60"></a>
-
-Kiran Neupane <br />
-tokeyrun@gmail.com <br />
-[Facebook](https://facebook.com/kiran.neupz)
-
-## Support This Package
-
-<a href="https://www.buymeacoffee.com/kirann"><img src="https://www.buymeacoffee.com/assets/img/bmc-meta-new/apple-icon-120x120.png" title="ashiishme" width="80" height="80"></a>
-
-### React Tutor @ Youtube
-
-Channel Name: Buggged <br/>
-[Youtube](https://www.youtube.com/channel/UChvdEZeMyLPhZ0Jt_K3RCyQ) <br/>
-[Website](https://buggged.com)
+## References
+This project utilizes a modified version of the [react-nepal-map](https://github.com/keyrunpay/react-nepal-map) library. The original library was created by [keyrunpay](https://github.com/keyrunpay) and is available [here](https://github.com/keyrunpay/react-nepal-map).
 
 ## License
 
