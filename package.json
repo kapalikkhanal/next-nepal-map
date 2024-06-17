@@ -1,6 +1,6 @@
 {
   "name": "next-nepal-map",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "NextJS component for Nepal Map",
   "author": "Kapalik Khanal",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.14.0"
+    "react": ">=18.0.0"
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
