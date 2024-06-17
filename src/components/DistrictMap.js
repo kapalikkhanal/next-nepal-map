@@ -17,8 +17,7 @@ export default function DistrictMap({
   provinceColor,
   stroke,
   strokeWidth,
-  districtStyles = {},  // Add districtStyles prop
-  showDistrictLabels = false  // Add showDistrictLabels prop with default false
+  districtStyles = {}  // Add districtStyles prop
 }) {
   const handleMapClick = (item) => {
     if (onMapClick) {
@@ -50,34 +49,21 @@ export default function DistrictMap({
             }
 
             return (
-              <g key={index}>
-                <path
-                  className={sectorClassName || ''}
-                  style={{ cursor: 'pointer', fill: pathColor }}
-                  stroke={stroke || '#000'}
-                  strokeWidth={strokeWidth || '1px'}
-                  d={item.shape}
-                  onMouseOver={(event) => {
-                    event.target.style.fill = hoverColor || defaultColor
-                  }}
-                  onClick={() => handleMapClick(item)}
-                  onMouseOut={(event) => {
-                    event.target.style.fill = districtStyles[item.name]?.fill || pathColor
-                  }}
-                />
-                {showDistrictLabels && (
-                  <text
-                    x={item.labelPosition.x}
-                    y={item.labelPosition.y}
-                    fill={districtStyles[item.name]?.labelColor || '#000'}
-                    fontSize={districtStyles[item.name]?.labelFontSize || 12}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                  >
-                    {item.name}
-                  </text>
-                )}
-              </g>
+              <path
+                className={sectorClassName || ''}
+                style={{ cursor: 'pointer', fill: pathColor }}
+                key={index}
+                stroke={stroke || '#000'}
+                strokeWidth={strokeWidth || '1px'}
+                d={item.shape}
+                onMouseOver={(event) => {
+                  event.target.style.fill = hoverColor || defaultColor
+                }}
+                onClick={() => handleMapClick(item)}
+                onMouseOut={(event) => {
+                  event.target.style.fill = districtStyles[item.name]?.fill || pathColor
+                }}
+               />
             )
           })}
         </g>
