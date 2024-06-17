@@ -17,7 +17,8 @@ export default function DistrictMap({
   provinceColor,
   stroke,
   strokeWidth,
-  districtStyles = {}  // Add districtStyles prop
+  districtStyles = {},
+  onDistrictHover,
 }) {
   const handleMapClick = (item) => {
     if (onMapClick) {
@@ -28,7 +29,19 @@ export default function DistrictMap({
         area: item.area
       })
     }
-  }
+  };
+
+  const handleMouseOver = (item) => {
+    if (onDistrictHover) {
+      onDistrictHover(item.name);
+    }
+  };
+
+  const handleMouseOut = (item) => {
+    if (onDistrictHover) {
+      onDistrictHover(null);
+    }
+  };
 
   return (
     <div style={{ maxWidth: '100%' }} className={containerClassName || ''}>
@@ -57,13 +70,15 @@ export default function DistrictMap({
                 strokeWidth={strokeWidth || '1px'}
                 d={item.shape}
                 onMouseOver={(event) => {
-                  event.target.style.fill = hoverColor || defaultColor
+                  event.target.style.fill = districtStyles[item.name]?.fill || pathColor;
+                  handleMouseOver(item);
+                }}
+                onMouseOut={(event) => {
+                  event.target.style.fill = pathColor;
+                  handleMouseOut(item);
                 }}
                 onClick={() => handleMapClick(item)}
-                onMouseOut={(event) => {
-                  event.target.style.fill = districtStyles[item.name]?.fill || pathColor
-                }}
-               />
+              />
             )
           })}
         </g>
