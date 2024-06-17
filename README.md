@@ -69,4 +69,8 @@ This project utilizes a modified version of the [react-nepal-map](https://github
 
 ## License
 
-MIT © [keyrunpay](https://github.com/keyrunpay)
+MIT
+
+## Keywords
+
+> Map >Map of Nepal >Nepal 
